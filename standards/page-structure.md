@@ -53,9 +53,11 @@ owner: lovelybugf
 
 ## Link chéo
 
-- Chỉ dùng link Markdown tương đối, kể cả sang kho khác: `[systemd](../../kb-base-devops/linux/systemd-basics.md)`.
+- Trong cùng kho: link Markdown tương đối, ví dụ `[LVM](../linux/storage-lvm.md)`.
+- Sang kho khác: URL GitHub tuyệt đối `https://github.com/lovelybugf/<kho>/blob/main/<đường-dẫn>` (thư mục dùng `/tree/main/`), ví dụ `[systemd](https://github.com/lovelybugf/kb-base-devops/blob/main/linux/systemd-basics.md)`. Link tương đối `../kb-x/...` chạy trên máy nhưng hỏng trên web GitHub, nên `kb_lint.py` báo lỗi và gợi ý URL đúng.
+- `kb_lint.py` vẫn kiểm tra URL sang kho khác bằng cách đối chiếu với bản clone nằm cạnh trên máy; khi làm việc trên máy, Claude đọc file tương ứng `../<kho>/<đường-dẫn>` thay vì tải web.
 - Không dùng đường dẫn ổ đĩa (`C:\...`), `file://`, hay link tuyệt đối tới máy cá nhân.
-- Không trùng lặp: kiến thức nằm ở đúng một kho (chọn theo [kb-hub](../../kb-hub/index.md)); nơi khác chỉ đặt link.
+- Không trùng lặp: kiến thức nằm ở đúng một kho (chọn theo [kb-hub](https://github.com/lovelybugf/kb-hub/blob/main/index.md)); nơi khác chỉ đặt link.
 - Đúng chữ hoa/thường: Windows bỏ qua, GitHub/Linux thì không (lint kiểm tra).
 - Link ra Internet chỉ dùng cho nguồn chính thức, ổn định.
 

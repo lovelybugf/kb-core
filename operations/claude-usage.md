@@ -12,8 +12,9 @@ owner: lovelybugf
 ## Nguyên tắc chung
 
 - Đọc mục lục trước (progressive disclosure): mỗi tầng chỉ vài trăm token, đủ để chọn đúng trang.
-- Câu hỏi thuộc kho nào → chỉ mở kho đó (bảng ở [kb-hub](../../kb-hub/index.md)).
+- Câu hỏi thuộc kho nào → chỉ mở kho đó (bảng ở [kb-hub](https://github.com/lovelybugf/kb-hub/blob/main/index.md)).
 - Giữ `CLAUDE.md` ≤ 40 dòng, `index.md` ≤ 200 dòng: đây là phần nạp mọi lần.
+- Link sang kho khác là URL GitHub (`https://github.com/lovelybugf/<kho>/blob/main/...`); khi các kho đã clone cạnh nhau, Claude đọc file `../<kho>/...` trên máy thay vì tải web.
 - Dữ liệu số (CSV ở kb-market-vn) không nạp vào ngữ cảnh; cho Claude lọc bằng công cụ (grep, pandas).
 
 ## Claude Code

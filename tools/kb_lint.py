@@ -10,11 +10,12 @@ Chạy ở thư mục chứa các kho (glob được tự mở rộng, kể cả
 LỖI (ERROR): thiếu file gốc bắt buộc, CLAUDE.md > 40 dòng, index.md > 200 dòng,
 log.md sai định dạng, thiếu frontmatter/trường bắt buộc, reliability/updated sai,
 tag không có trong kb-core/standards/tags.md, thiếu TL;DR, placeholder {{...}} còn sót,
-trang > 500 dòng, link tương đối hỏng / sai hoa-thường / trỏ ổ đĩa cục bộ,
-trang không có trong _index.md (hoặc index.md với trang ở gốc), _index.md mồ côi.
+trang > 500 dòng, link tương đối hỏng / sai hoa-thường / trỏ ổ đĩa cục bộ / ra ngoài kho,
+link GitHub sang kho khác (GITHUB_BASE/<kho>/blob/main/...) không có file tương ứng trong
+bản clone trên máy, trang không có trong _index.md (hoặc index.md với trang ở gốc), _index.md mồ côi.
 CẢNH BÁO (WARN): `updated` quá 180 ngày hoặc ở tương lai, tên file/thư mục không
 kebab-case, trường frontmatter lạ, > 6 tag, nghi chứa bí mật (mật khẩu, khóa, IP nội bộ),
-link sang kho chưa có trên máy.
+link GitHub trỏ vào chính kho đang kiểm hoặc sang kho chưa clone trên máy.
 
 Mã thoát: 0 = không lỗi; 1 = có lỗi (với --strict: có lỗi hoặc cảnh báo); 2 = sai tham số.
 """
@@ -213,32 +214,52 @@ class Linter(object):
                 self.add("ERROR", path, n, "còn placeholder template {{...}} chưa điền")
                 break
 
+    def suggest_url(self, dest):
+        try:
+            parts = dest.relative_to(self.workspace).parts
+        except ValueError:
+            return "URL GitHub tuyệt đối"
+        if not parts:
+            return "URL GitHub tuyệt đối"
+        return kc.github_url(parts[0], "/".join(parts[1:]), is_dir=dest.is_dir())
+
     def check_links(self, path, text, kb):
         targets = set()
         for target, line in kc.find_links(text):
             if kc.DRIVE_RE.match(target) or target.lower().startswith("file:"):
                 self.add("ERROR", path, line, "link tuyệt đối tới máy cục bộ: %s" % target)
                 continue
+            mapped = kc.github_link_to_path(target, self.workspace)
+            if mapped is not None:
+                self.check_github_link(path, line, target, mapped, kb)
+                continue
             dest = kc.resolve_link(path, target, kb)
             if dest is None:
                 continue
             targets.add(dest)
-            if dest.exists():
-                if not self.exact_case(dest):
-                    self.add("ERROR", path, line, "link sai chữ hoa/thường (hỏng trên Linux/GitHub): %s" % target)
-                continue
             try:
                 dest.relative_to(kb)
-                inside = True
             except ValueError:
-                inside = False
-            if not inside:
-                sibling = self.sibling_root(dest)
-                if sibling is not None and not sibling.exists():
-                    self.add("WARN", path, line, "link sang kho chưa có trên máy: %s" % target)
-                    continue
-            self.add("ERROR", path, line, "link hỏng: %s" % target)
+                self.add("ERROR", path, line, "link tương đối ra ngoài kho (hỏng trên GitHub) — đổi thành %s"
+                         % self.suggest_url(dest))
+                continue
+            if not dest.exists():
+                self.add("ERROR", path, line, "link hỏng: %s" % target)
+            elif not self.exact_case(dest):
+                self.add("ERROR", path, line, "link sai chữ hoa/thường (hỏng trên Linux/GitHub): %s" % target)
         return targets
+
+    def check_github_link(self, path, line, target, mapped, kb):
+        """URL GitHub sang kho khác: đối chiếu với bản clone nằm cạnh trên máy."""
+        sibling = self.sibling_root(mapped)
+        if sibling == kb:
+            self.add("WARN", path, line, "link trong cùng kho nên dùng đường dẫn tương đối: %s" % target)
+        if sibling is None or not sibling.is_dir():
+            self.add("WARN", path, line, "không kiểm tra được, kho chưa có trên máy: %s" % target)
+        elif not mapped.exists():
+            self.add("ERROR", path, line, "link GitHub hỏng (không có file tương ứng trong bản clone): %s" % target)
+        elif not self.exact_case(mapped):
+            self.add("ERROR", path, line, "link GitHub sai chữ hoa/thường: %s" % target)
 
     def check_secrets(self, path, text):
         for n, line in enumerate(text.splitlines(), 1):

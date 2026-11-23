@@ -9,6 +9,7 @@ Phạm vi: chuẩn viết và vận hành tri thức dùng chung cho mọi kho `
 ## Quy ước
 - Mỗi trang 1 chủ đề, ≤ 500 dòng, frontmatter + dòng `**TL;DR:**` ngay sau frontmatter.
 - Tag chỉ lấy từ [standards/tags.md](standards/tags.md); thêm tag mới = sửa file đó trước.
+- Link trong kho: tương đối. Link sang kho khác: URL `https://github.com/lovelybugf/<kho>/blob/main/<đường-dẫn>` — khi làm việc trên máy, đọc file `../<kho>/<đường-dẫn>`, không tải web.
 - Lệnh trong code block; giá trị môi trường dùng placeholder `<SATELLITE_FQDN>`, `<ORG>`.
 - Đổi chuẩn ở đây có thể làm kho khác lỗi lint → chạy lint cho mọi kho trước khi commit.
 
@@ -18,10 +19,10 @@ Phạm vi: chuẩn viết và vận hành tri thức dùng chung cho mọi kho `
 - `python kb-core/tools/new_page.py <kho>/<thu-muc>/<ten-file> "Tiêu đề"` — tạo trang từ template.
 
 ## Kho liên quan
-- Cổng vào: [../kb-hub/index.md](../kb-hub/index.md). Mọi kho khác tham chiếu chuẩn ở đây bằng link `../kb-core/...`.
+- Cổng vào: [kb-hub/index.md](https://github.com/lovelybugf/kb-hub/blob/main/index.md). Mọi kho khác tham chiếu chuẩn ở đây bằng URL `https://github.com/lovelybugf/kb-core/blob/main/...`.
 
 ## Không được
 - Không lưu mật khẩu, API key, token, IP/hostname nội bộ của khách hàng.
-- Không chép nội dung chuẩn sang kho khác — chỉ đặt link tương đối.
+- Không chép nội dung chuẩn sang kho khác — chỉ đặt link.
 - Không sửa/xoá dòng cũ trong `log.md` (chỉ ghi thêm).
 - Không thêm thư viện ngoài vào `tools/` (chỉ thư viện chuẩn Python).

@@ -30,6 +30,14 @@ TLDR_PREFIX = "**TL;DR:**"
 AUTO_START = "<!-- AUTO-INDEX START -->"
 AUTO_END = "<!-- AUTO-INDEX END -->"
 
+# Link sang kho khác dùng URL GitHub tuyệt đối (link tương đối ../kb-x/... hỏng trên web GitHub).
+# kb_lint.py đối chiếu các URL này với bản clone của kho tương ứng nằm cạnh nhau trên máy.
+GITHUB_BASE = "https://github.com/lovelybugf"
+GITHUB_BRANCH = "main"
+GITHUB_LINK_RE = re.compile(
+    r"^" + re.escape(GITHUB_BASE) + r"/(kb-[a-z0-9-]+)"
+    r"(?:/(?:blob|tree)/" + re.escape(GITHUB_BRANCH) + r"(/[^#?]*)?)?/?(?:[#?].*)?$")
+
 KEBAB_MD_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*\.md$")
 KEBAB_DIR_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 LOG_RE = re.compile(r"^(\d{4}-\d{2}-\d{2}) \| (ingest|update|lint) \| \S.*$")
@@ -309,6 +317,29 @@ def find_links(text):
                 target = target[1:-1]
             found.append((target, clean.count("\n", 0, m.start()) + 1))
     return found
+
+
+def github_link_to_path(target, workspace):
+    """URL GitHub trỏ vào một kho kb-* → đường dẫn tương ứng trên máy (workspace/<kho>/<path>).
+
+    Trả về None nếu `target` không phải URL dạng GITHUB_BASE/<kho>[/blob|tree/<nhánh>/<path>].
+    """
+    m = GITHUB_LINK_RE.match(target)
+    if not m:
+        return None
+    path = Path(workspace) / m.group(1)
+    rel = unquote((m.group(2) or "").strip("/"))
+    if rel:
+        path = path / rel
+    return Path(os.path.normpath(str(path)))
+
+
+def github_url(kb_name, rel_posix="", is_dir=False):
+    """URL GitHub của một file/thư mục trong kho (dùng cho link sang kho khác)."""
+    if not rel_posix:
+        return "%s/%s" % (GITHUB_BASE, kb_name)
+    return "%s/%s/%s/%s/%s" % (GITHUB_BASE, kb_name, "tree" if is_dir else "blob",
+                               GITHUB_BRANCH, rel_posix)
 
 
 def resolve_link(src_file, target, kb_root):

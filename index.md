@@ -2,7 +2,7 @@
 
 > Chuẩn chung và công cụ vận hành cho hệ thống kho tri thức Markdown kb-*: khuôn trang, frontmatter, đặt tên, tag, nguồn; quy trình ingest và lint; template; script Python.
 
-Mọi kho khác tham chiếu chuẩn ở đây bằng link tương đối `../kb-core/...`. Đọc `_index.md` của nhóm cần trước khi mở trang.
+Mọi kho khác tham chiếu chuẩn ở đây bằng URL GitHub `https://github.com/lovelybugf/kb-core/blob/main/...` (quy tắc link giữa các kho: `standards/page-structure.md`). Đọc `_index.md` của nhóm cần trước khi mở trang.
 
 ## Chuẩn
 

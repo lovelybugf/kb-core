@@ -34,13 +34,14 @@ Tuỳ chọn khác: `--stale-days 180`, `--max-lines 500`, `--today YYYY-MM-DD` 
 | Tag không có trong [tags.md](../standards/tags.md) | Lỗi | Đổi sang tag có sẵn, hoặc bổ sung tag vào kb-core trước |
 | Placeholder `{{...}}` còn sót | Lỗi | Điền nội dung |
 | Trang > 500 dòng | Lỗi | Tách trang theo chủ đề con |
-| Link tương đối hỏng, sai hoa/thường, trỏ ổ đĩa cục bộ | Lỗi | Sửa đường dẫn; dời trang thì sửa mọi link trỏ tới |
+| Link tương đối hỏng, sai hoa/thường, trỏ ổ đĩa cục bộ, hoặc ra ngoài kho (`../kb-x/...`) | Lỗi | Sửa đường dẫn; sang kho khác thì dùng URL GitHub mà lint gợi ý; dời trang thì sửa mọi link trỏ tới |
+| URL GitHub sang kho khác không có file tương ứng trong bản clone trên máy | Lỗi | Sửa URL; dời/xoá trang ở kho kia thì tìm mọi URL trỏ tới bằng `grep -r "<kho>/blob/main/<đường-dẫn>" kb-*` |
 | Trang không có trong `_index.md` (trang ở gốc: không có trong `index.md`) | Lỗi | Chạy `kb_index.py` hoặc thêm tay |
 | `_index.md` không được `index.md`/`_index.md` cấp trên trỏ tới | Lỗi | Thêm dòng vào `index.md` |
 | `updated` quá 180 ngày hoặc ở tương lai | Cảnh báo | Rà nội dung, cập nhật `updated`, ghi log |
 | Tên file/thư mục không kebab-case, trường lạ, > 6 tag | Cảnh báo | Đổi tên (sửa link), bỏ trường lạ |
 | Nghi chứa mật khẩu, khóa, token, IP nội bộ | Cảnh báo | Thay bằng placeholder `<...>`; nếu đã commit bí mật thật → đổi bí mật đó ngay |
-| Link sang kho khác chưa có trên máy | Cảnh báo | Clone đủ các kho cạnh nhau rồi chạy lại |
+| URL GitHub sang kho chưa clone trên máy; URL GitHub trỏ vào chính kho đang kiểm | Cảnh báo | Clone đủ các kho cạnh nhau rồi chạy lại; trong cùng kho dùng link tương đối |
 
 ## Lịch rà soát
 

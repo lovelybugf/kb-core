@@ -10,7 +10,7 @@ owner: lovelybugf
 
 ## 1. Chọn kho và kiểm tra trùng
 
-- Xác định kho theo bảng phạm vi ở [kb-hub](../../kb-hub/index.md). Kiến thức chung (Linux, container) vào `kb-base-devops`; riêng sản phẩm Red Hat vào `kb-redhat`.
+- Xác định kho theo bảng phạm vi ở [kb-hub](https://github.com/lovelybugf/kb-hub/blob/main/index.md). Kiến thức chung (Linux, container) vào `kb-base-devops`; riêng sản phẩm Red Hat vào `kb-redhat`.
 - Tìm trang đã có trước khi tạo mới:
 
 ```bash
