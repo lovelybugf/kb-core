@@ -22,6 +22,8 @@ Mọi kho khác tham chiếu chuẩn ở đây bằng URL GitHub `https://github
 - [kb_index.py](tools/kb_index.py) — sinh khối AUTO-INDEX trong `_index.md` từ title + TL;DR, giữ phần viết tay.
 - [new_page.py](tools/new_page.py) — tạo trang mới từ template, cập nhật `_index.md` và `log.md`.
 - [kb_common.py](tools/kb_common.py) — hàm dùng chung: đọc frontmatter, tìm link, danh mục tag.
+- [kb_session_hook.py](tools/kb_session_hook.py) — hàng đợi phiên Claude Code cho hook SessionEnd/SessionStart; lệnh list, digest, done, skip, scan.
+- [Skill kb-capture](tools/claude/skills/kb-capture/SKILL.md) — quy trình ghi phiên vào kho; cài và dùng: `operations/session-capture.md`.
 
 ## Optional
 

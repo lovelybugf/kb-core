@@ -17,6 +17,7 @@ Phạm vi: chuẩn viết và vận hành tri thức dùng chung cho mọi kho `
 - `python kb-core/tools/kb_lint.py kb-*` — kiểm tra, thoát mã 1 nếu có lỗi.
 - `python kb-core/tools/kb_index.py kb-*` — sinh lại khối AUTO-INDEX trong `_index.md`.
 - `python kb-core/tools/new_page.py <kho>/<thu-muc>/<ten-file> "Tiêu đề"` — tạo trang từ template.
+- Skill `/kb-capture` + `tools/kb_session_hook.py`: ghi phiên Claude Code vào kho (operations/session-capture.md).
 
 ## Kho liên quan
 - Cổng vào: [kb-hub/index.md](https://github.com/lovelybugf/kb-hub/blob/main/index.md). Mọi kho khác tham chiếu chuẩn ở đây bằng URL `https://github.com/lovelybugf/kb-core/blob/main/...`.

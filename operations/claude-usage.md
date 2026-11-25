@@ -96,6 +96,7 @@ Số liệu cần nhớ (theo tài liệu prompt caching, kiểm lại trước 
 ## Liên quan
 
 - [Quy trình ingest](ingest.md) · [Khuôn trang](../standards/page-structure.md) · [Rà soát và lint](review-and-lint.md)
+- [Tự ghi phiên Claude Code vào kho (kb-capture)](session-capture.md)
 
 ## Nguồn
 
