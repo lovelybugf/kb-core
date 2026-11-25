@@ -7,3 +7,4 @@
 2026-11-23 | update | link sang kho khác đổi sang URL GitHub (4 link + template kb-CLAUDE.md); kb_lint kiểm tra URL GitHub với bản clone, báo lỗi link tương đối ra ngoài kho; cập nhật page-structure, review-and-lint, claude-usage
 2026-11-25 | update | skill kb-capture + tools/kb_session_hook.py (hook SessionEnd/SessionStart, hàng đợi phiên, digest, scan blocklist); trang operations/session-capture.md
 2026-11-25 | update | kb_session_hook digest: không cắt từng tin nhắn khi còn chỗ; tag windows; claude-usage.md thêm mục sự cố Claude Code trên Windows ← phiên Claude Code b3031a33
+2026-11-25 | update | tags.md thêm 12 tag Red Hat (authentication, backup, certificate, compliance, errata, installation, monitoring, performance, provisioning, remote-execution, upgrade, virt-who) cho đợt nạp tài liệu Satellite ← phiên Claude Code b3031a33

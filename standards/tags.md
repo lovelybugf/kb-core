@@ -60,17 +60,29 @@ owner: lovelybugf
 - `aap` — Red Hat Ansible Automation Platform.
 - `activation-key` — Activation Key của Satellite.
 - `ansible` — Ansible (playbook, role, collection).
+- `authentication` — xác thực người dùng: LDAP, AD, IdM, SSO.
+- `backup` — sao lưu, khôi phục, khắc phục thảm hoạ.
 - `capsule` — Capsule Server.
+- `certificate` — chứng chỉ SSL/TLS, CA.
+- `compliance` — tuân thủ bảo mật, OpenSCAP.
 - `content-view` — Content View, Lifecycle Environment, promote/publish.
 - `download-policy` — download policy của repository (immediate, on_demand, ...).
+- `errata` — errata, vá lỗi bảo mật (RHSA/RHBA/RHEA).
 - `hammer` — Hammer CLI.
 - `idm` — Red Hat Identity Management (IdM/FreeIPA).
+- `installation` — cài đặt sản phẩm.
 - `lightspeed` — Red Hat Lightspeed (tên mới của Red Hat Insights).
+- `monitoring` — giám sát, health check, log, thông báo.
 - `ocp` — Red Hat OpenShift Container Platform.
+- `performance` — sizing, tuning hiệu năng.
+- `provisioning` — cấp phát máy: PXE, boot disk, kickstart, compute resource.
 - `pulp` — Pulp, lưu trữ nội dung trong `/var/lib/pulp`.
 - `registration` — đăng ký host, subscription-manager.
+- `remote-execution` — chạy job từ xa (REX, SSH, pull mode).
 - `rhel` — Red Hat Enterprise Linux.
 - `satellite` — Red Hat Satellite.
+- `upgrade` — nâng cấp phiên bản sản phẩm hoặc hệ điều hành.
+- `virt-who` — virt-who, subscription cho máy ảo.
 
 ## Thị trường Việt Nam
 
