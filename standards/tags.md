@@ -53,6 +53,7 @@ owner: lovelybugf
 - `security` — bảo mật, hardening.
 - `storage` — lưu trữ: disk, filesystem, volume.
 - `systemd` — systemd, unit, journal.
+- `windows` — Windows: PowerShell, Office COM, Task Scheduler.
 
 ## Red Hat
 

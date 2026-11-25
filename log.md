@@ -6,3 +6,4 @@
 2026-11-23 | lint | kb_index.py + kb_lint.py kb-* --strict: 0 lỗi, 0 cảnh báo (5 kho, 27 trang)
 2026-11-23 | update | link sang kho khác đổi sang URL GitHub (4 link + template kb-CLAUDE.md); kb_lint kiểm tra URL GitHub với bản clone, báo lỗi link tương đối ra ngoài kho; cập nhật page-structure, review-and-lint, claude-usage
 2026-11-25 | update | skill kb-capture + tools/kb_session_hook.py (hook SessionEnd/SessionStart, hàng đợi phiên, digest, scan blocklist); trang operations/session-capture.md
+2026-11-25 | update | kb_session_hook digest: không cắt từng tin nhắn khi còn chỗ; tag windows; claude-usage.md thêm mục sự cố Claude Code trên Windows ← phiên Claude Code b3031a33

@@ -4,7 +4,7 @@ tags: [howto, claude, kb-meta]
 product: Claude Code, Claude API (model claude-opus-5-5)
 source: https://platform.claude.com/docs/en/build-with-claude/prompt-caching
 reliability: unverified
-updated: 2026-11-23
+updated: 2026-11-25
 owner: lovelybugf
 ---
 **TL;DR:** Cho Claude đọc theo tầng: `CLAUDE.md` → `index.md` → `_index.md` của chủ đề → 2–3 trang cần thiết, không nạp cả kho. Với API, đặt `CLAUDE.md` + `index.md` (phần ổn định) ở đầu system prompt có `cache_control` để các câu hỏi sau đọc từ cache với giá thấp hơn nhiều.
@@ -92,6 +92,15 @@ Số liệu cần nhớ (theo tài liệu prompt caching, kiểm lại trước 
 - `CLAUDE.md` + `index.md` của một kho thường chỉ vài nghìn token, vượt ngưỡng tối thiểu nên rẻ khi đọc lại.
 - Để Claude tự chọn trang: khai báo một tool `read_page(path)` chỉ cho đọc file `.md` trong kho; trả nội dung trang làm `tool_result`. Phần này nằm sau breakpoint nên không làm hỏng cache.
 - Đưa vào production: xử lý `stop_reason` (`max_tokens`, `refusal`) trước khi đọc nội dung trả về; xem hướng dẫn chính thức về fallback khi bị từ chối.
+
+## Sự cố khi dùng Claude Code trên Windows
+
+Đã gặp và kiểm chứng ngày 2026-11-25:
+
+- **App Claude desktop (gói MSIX) ảo hoá `%LOCALAPPDATA%`:** thư mục mới mà lệnh chạy từ Claude (công cụ Bash/PowerShell) tạo dưới `%LOCALAPPDATA%` thực ra nằm ở `AppData\Local\Packages\Claude_<id>\LocalCache\Local\...`; tiến trình ngoài app (Task Scheduler, terminal riêng) dùng đường dẫn thật. Hệ quả: file log do scheduled task ghi trông như không đổi khi Claude đọc. Kiểm tra bằng task tạm `cmd /c copy "%LOCALAPPDATA%\<...>\file" "%TEMP%\<...>"` rồi đọc bản sao; `%TEMP%`, `%USERPROFILE%\.claude` và thư mục dự án không bị ảnh hưởng.
+- **Hook trên Windows:** dùng dạng exec — `command` là đường dẫn `python.exe`, `args` là danh sách tham số — không qua shell nên đường dẫn có dấu cách không cần trích dẫn. SessionEnd mặc định chỉ có 1,5 giây: đặt `timeout`. Chi tiết: [session-capture.md](session-capture.md).
+- **`python` trỏ tới alias Microsoft Store** (`WindowsApps\python.exe`) trong shell mở trước khi cài Python: gọi đường dẫn đầy đủ hoặc mở shell mới.
+- **In tiếng Việt từ Python bị lỗi** khi đầu ra bị chuyển hướng (console dùng bảng mã cp125x): gọi `sys.stdout.reconfigure(encoding="utf-8", errors="replace")` ở đầu script.
 
 ## Liên quan
 

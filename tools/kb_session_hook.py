@@ -173,7 +173,8 @@ def clip(text, limit):
 
 def render_digest(path, max_chars):
     title, messages, _ = read_transcript(path)
-    user_limit, asst_limit = 4000, 2500
+    # Bắt đầu không cắt từng tin nhắn; chỉ thu nhỏ dần khi tổng vượt max_chars.
+    user_limit = asst_limit = max(max_chars, 300)
     while True:
         parts = []
         for role, text, ts in messages:
@@ -183,7 +184,7 @@ def render_digest(path, max_chars):
         body = "\n\n".join(parts)
         if len(body) <= max_chars or asst_limit <= 300:
             break
-        asst_limit //= 2
+        asst_limit = max(300, asst_limit // 2)
         user_limit = max(1500, user_limit // 2)
     if len(body) > max_chars:
         body = clip(body, max_chars)
